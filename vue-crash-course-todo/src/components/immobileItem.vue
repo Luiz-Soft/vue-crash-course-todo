@@ -1,28 +1,30 @@
 <template>
-  <div class="todo-item" v-bind:class="{ 'is-complete': todo.completed }">
+  <div
+    class="immobile-item"
+    v-bind:class="{ 'is-complete': immobile.completed }"
+  >
     <p>
-      <input type="checkbox" v-on:change="markComplete" />
-      {{ todo.title }}
-      <button @click="$emit('del-todo', todo.id)" class="del">x</button>
+      {{ immobile.address }}, {{ immobile.number }}
+      <button @click="$emit('del-immobile', immobile.id)" class="del">x</button>
     </p>
   </div>
 </template>
 
 <script>
 export default {
-  name: "TodoItem",
-  props: ["todo"],
-  methods: {
+  name: "ImmobileItem",
+  props: ["immobile"],
+  /*methods: {
     markComplete() {
       console.log("marked as completed");
-      this.todo.completed = !this.todo.completed;
+      this.immobile.completed = !this.immobile.completed;
     },
-  },
+  },*/
 };
 </script>
 
 <style scoped>
-.todo-item {
+.immobile-item {
   background: #f4f4f4;
   padding: 10px;
   border-bottom: 1px #ccc dotted;

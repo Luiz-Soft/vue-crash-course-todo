@@ -1,48 +1,53 @@
 <template>
   <div id="app">
-    <addTodo v-on:add-todo="addTodo" />
-    <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo" />
+    <addImmobile v-on:add-immobile="addImmobile" />
+    <Immobiles v-bind:immobiles="immobiles" />
   </div>
 </template>
 
 <script>
-import Todos from "../components/todos.vue";
-import addTodo from "../components/addTodo.vue";
+import Immobiles from "../components/immobiles.vue";
+import addImmobile from "../components/addImmobile.vue";
 import axios from "axios";
 export default {
   name: "App",
   components: {
-    Todos,
-    addTodo,
+    Immobiles,
+    addImmobile,
   },
   data() {
     return {
-      todos: [],
+      immobiles: [],
     };
   },
   methods: {
-    deleteTodo(id) {
+    /* deleteImmobile(id) { //IMMOBILE NAO SE DELETA
       axios
-        .delete(`http://jsonplaceholder.typicode.com/todos/${id}`) //deleta
-        .then((this.todos = this.todos.filter((todo) => todo.id !== id))) //atualiza a ui
+        .delete(`http://jsonplaceholder.typicode.com/immobiles/${id}`) //deleta
+        .then(
+          (this.immobiles = this.immobiles.filter(
+            (immobile) => immobile.id !== id
+          ))
+        ) //atualiza a ui
         .catch((err) => console.log(err));
-    },
-    addTodo(newTodo) {
-      const { title, completed } = newTodo;
+    },*/
+    addImmobile(newImmobile) {
+      const { address, number } = newImmobile;
 
       axios
-        .post("http://jsonplaceholder.typicode.com/todos", {
-          title,
-          completed,
+        .post("http://homologacao.sistemaeris.com.br:84/immobiles", {
+          address,
+          number,
         }) // it posts then updates the ui
-        .then((res) => (this.todos = [...this.todos, res.data]))
+        .then((res) => (this.immobiles = [...this.immobiles, res.data]))
         .catch((err) => console.log(err));
+      console.log("immobiles refreshed");
     },
   },
   created() {
     axios
-      .get("http://jsonplaceholder.typicode.com/todos?_limit=5")
-      .then((res) => (this.todos = res.data))
+      .get("http://homologacao.sistemaeris.com.br:84/immobiles")
+      .then((res) => (this.immobiles = res.data))
       .catch((err) => console.log(err));
   },
 };

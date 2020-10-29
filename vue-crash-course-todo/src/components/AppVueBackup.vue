@@ -1,51 +1,58 @@
 <template>
   <div id="app">
     <Header />
-    <addTodo v-on:add-todo="addTodo" />
-    <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo" />
+    <addImmobile v-on:add-immobile="addImmobile" />
+    <Immobiles
+      v-bind:immobiles="immobiles"
+      v-on:del-immobile="deleteImmobile"
+    />
   </div>
 </template>
 
 <script>
 import Header from "./components/layout/header.vue";
-import Todos from "./components/todos.vue";
-import addTodo from "./components/addTodo.vue";
+import Immobiles from "./components/immobiles.vue";
+import addImmobile from "./components/addImmobile.vue";
 import axios from "axios";
 export default {
   name: "App",
   components: {
-    Todos,
+    Immobiles,
     Header,
-    addTodo,
+    addImmobile,
   },
   data() {
     return {
-      todos: [],
+      immobiles: [],
     };
   },
   methods: {
-    deleteTodo(id) {
+    deleteImmobile(id) {
       axios
-        .delete(`http://jsonplaceholder.typicode.com/todos/${id}`) //deleta
-        .then((this.todos = this.todos.filter((todo) => todo.id !== id))) //atualiza a ui
+        .delete(`http://jsonplaceholder.typicode.com/immobiles/${id}`) //deleta
+        .then(
+          (this.immobiles = this.immobiles.filter(
+            (immobile) => immobile.id !== id
+          ))
+        ) //atualiza a ui
         .catch((err) => console.log(err));
     },
-    addTodo(newTodo) {
-      const { title, completed } = newTodo;
+    addImmobile(newImmobile) {
+      const { title, completed } = newImmobile;
 
       axios
-        .post("http://jsonplaceholder.typicode.com/todos", {
+        .post("http://jsonplaceholder.typicode.com/immobiles", {
           title,
           completed,
         }) // it posts then updates the ui
-        .then((res) => (this.todos = [...this.todos, res.data]))
+        .then((res) => (this.immobiles = [...this.immobiles, res.data]))
         .catch((err) => console.log(err));
     },
   },
   created() {
     axios
-      .get("http://jsonplaceholder.typicode.com/todos?_limit=5")
-      .then((res) => (this.todos = res.data))
+      .get("http://jsonplaceholder.typicode.com/immobiles?_limit=5")
+      .then((res) => (this.immobiles = res.data))
       .catch((err) => console.log(err));
   },
 };
