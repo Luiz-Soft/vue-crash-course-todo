@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import uuid from "uuid";
+//import uuid from "uuid";
 export default {
   name: "addTodo",
   data() {
@@ -28,7 +28,6 @@ export default {
       e.preventDefault(); //it stops the default behavior (sending the todo to a file) and keeps to follow method
 
       const newTodo = {
-        id: uuid.v4(),
         title: this.title,
         completed: false,
       };
