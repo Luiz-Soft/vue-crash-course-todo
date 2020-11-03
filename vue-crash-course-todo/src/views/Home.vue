@@ -21,16 +21,17 @@ export default {
     };
   },
   methods: {
-    /* deleteImmobile(id) { //IMMOBILE NAO SE DELETA
+    deleteImmobile(id) {
+      //IMMOBILE NAO SE DELETA
       axios
-        .delete(`http://jsonplaceholder.typicode.com/immobiles/${id}`) //deleta
+        .get(`http://homologacao.sistemaeris.com.br:84/immobiles/${id}`) //details
         .then(
           (this.immobiles = this.immobiles.filter(
             (immobile) => immobile.id !== id
           ))
         ) //atualiza a ui
         .catch((err) => console.log(err));
-    },*/
+    },
     addImmobile(newImmobile) {
       const { address, number } = newImmobile;
 
